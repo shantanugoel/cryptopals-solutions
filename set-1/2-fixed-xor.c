@@ -9,79 +9,10 @@ char lookup[17] = "0123456789abcdef";
 
 unsigned int hex2dec(char nibble)
 {
-  unsigned int val = 0;
-  switch(nibble)
-  {
-    case '0':
-      val = 0;
-      break;
-
-    case '1':
-      val = 1;
-      break;
-
-    case '2':
-      val = 2;
-      break;
-
-    case '3':
-      val = 3;
-      break;
-
-    case '4':
-      val = 4;
-      break;
-
-    case '5':
-      val = 5;
-      break;
-
-    case '6':
-      val = 6;
-      break;
-
-    case '7':
-      val = 7;
-      break;
-
-    case '8':
-      val = 8;
-      break;
-
-    case '9':
-      val = 9;
-      break;
-
-    case 'a':
-    case 'A':
-      val = 10;
-        break;
-
-    case 'b':
-    case 'B':
-      val = 11;
-      break;
-
-    case 'c':
-    case 'C':
-      val = 12;
-      break;
-
-    case 'd':
-    case 'D':
-      val = 13;
-      break;
-
-    case 'e':
-    case 'E':
-      val = 14;
-      break;
-
-    case 'f':
-    case 'F':
-      val = 15;
-      break;
-  }
+  char val = 0;
+  if(nibble > 'a') { val = nibble - 'a' + 10; }
+  else if(nibble > 'A') { val = nibble - 'A' + 10; }
+  else { val = nibble - '0'; }
   return val;
 }
 

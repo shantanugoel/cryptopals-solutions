@@ -9,4 +9,8 @@ int base64_to_hex(char * input, char * output,
 
 unsigned int count_bits(char num);
 
-unsigned int get_hamming_distance(char * str1, char * str2);
+unsigned int get_hamming_distance(char * str1, char * str2, unsigned int length);
+
+unsigned int get_char_frequency_score(char num);
+
+void hex_to_str(char * input, char * output, unsigned input_len, unsigned output_len);

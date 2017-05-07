@@ -1,7 +1,27 @@
 #include <stdio.h>
+#include <string.h>
 #include "utils.h"
 
 char hex_lookup[] = "0123456789abcdef";
+
+/* Scoring space is found from wikipedia and organized in order of most frequently occuring chars
+   to least and capital letter being given slightly less score than small letters */
+char scoring_space[] = " eEtTaAoOiInNsShHrRdDlLcCuUmMwWfFgGyYpPbBvVkKjJxXqQzZ";
+
+unsigned int get_char_frequency_score(char num)
+{
+  unsigned int result = 0;
+  unsigned int scoring_space_len = strlen(scoring_space);
+  for(unsigned int i = 0; i < scoring_space_len; ++i)
+  {
+    if(num == scoring_space[i])
+    {
+      result = scoring_space_len - i;
+      break;
+    }
+  }
+  return result;
+}
 
 unsigned int hex_to_dec(char nibble)
 {
@@ -10,6 +30,15 @@ unsigned int hex_to_dec(char nibble)
   else if(nibble > 'A') { val = nibble - 'A' + 10; }
   else { val = nibble - '0'; }
   return val;
+}
+
+void hex_to_str(char * input, char * output, unsigned input_len, unsigned output_len)
+{
+  for(unsigned int i = 0; i <= input_len / 2; ++i)
+  {
+    output[i] = (hex_to_dec(input[2 * i]) * 16 + hex_to_dec(input[2 * i + 1]));
+  }
+  output[input_len / 2 + 1] = '\0';
 }
 
 unsigned int base64_to_dec(char input)
@@ -126,32 +155,12 @@ unsigned int count_bits(char num)
   return count;
 }
 
-unsigned int get_hamming_distance(char * str1, char * str2)
+unsigned int get_hamming_distance(char * str1, char * str2, unsigned int length)
 {
   unsigned int count = 0;
-  unsigned char1 = '\0';
-  unsigned char2 = '\0';
-  while(*str1 || *str2)
+  for(unsigned int i = 0; i < length; ++i)
   {
-    if(*str1)
-    {
-      char1 = *str1;
-      str1++;
-    }
-    else
-    {
-      char1 = '\0';
-    }
-    if(*str2)
-    {
-      char2 = *str2;
-      str2++;
-    }
-    else
-    {
-      char2 = '\0';
-    }
-    count += count_bits(char1 ^ char2);
+    count += count_bits(str1[i] ^ str2[i]);
   }
   return count;
 }

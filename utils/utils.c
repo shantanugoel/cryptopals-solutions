@@ -26,8 +26,8 @@ unsigned int get_char_frequency_score(char num)
 unsigned int hex_to_dec(char nibble)
 {
   char val = 0;
-  if(nibble > 'a') { val = nibble - 'a' + 10; }
-  else if(nibble > 'A') { val = nibble - 'A' + 10; }
+  if(nibble >= 'a') { val = nibble - 'a' + 10; }
+  else if(nibble >= 'A') { val = nibble - 'A' + 10; }
   else { val = nibble - '0'; }
   return val;
 }
@@ -38,7 +38,6 @@ void hex_to_str(char * input, char * output, unsigned input_len, unsigned output
   {
     output[i] = (hex_to_dec(input[2 * i]) * 16 + hex_to_dec(input[2 * i + 1]));
   }
-  output[input_len / 2 + 1] = '\0';
 }
 
 unsigned int base64_to_dec(char input)
@@ -89,12 +88,12 @@ unsigned int extract_bit_range(unsigned int num, unsigned begin, unsigned int en
   return ((num << left_shift_amount) >> right_shift_amount);
 }
 
-int base64_to_hex(char * input, char * output,
+unsigned int base64_to_hex(char * input, char * output,
                   unsigned int input_length, unsigned int output_length)
 {
   unsigned current_num = 0, leftover_bits = 6, needed_bits = 4, output_val = 0;
   unsigned int i = 0, j = 0;
-  int result = 0;
+  int hex_chars_count = 0;
   for(i = 0, j = 0; (i < input_length) && (j < output_length - 1); ++i)
   {
     /* Skip newlines in input stream */
@@ -133,13 +132,14 @@ int base64_to_hex(char * input, char * output,
   if(i < input_length)
   {
     /* Not able to process complete input due to insufficient output buffer */
-    result = -1;
+    hex_chars_count = -1;
   }
   else
   {
     output[j] = '\0';
+    hex_chars_count = j + 1;
   }
-  return result;
+  return hex_chars_count;
 }
 
 unsigned int count_bits(char num)

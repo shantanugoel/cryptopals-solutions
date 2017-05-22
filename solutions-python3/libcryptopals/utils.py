@@ -16,3 +16,24 @@ def fixed_xor(first_buffer, second_buffer):
     output += bytes([x ^ y])
 
   return output
+
+
+def english_score(string):
+  score = 0
+  scoring_space = " eEtTaAoOiInNsShHrRdDlLcCuUmMwWfFgGyYpPbBvVkKjJxXqQzZ"
+  scoring_space_len = len(scoring_space)
+  for char in string:
+    scoring_space_pos = 0
+    for x in scoring_space:
+      if x == char:
+        score += scoring_space_len - scoring_space_pos
+        break
+      scoring_space_pos += 1
+  return score
+
+
+def single_byte_xor(buffer, key):
+  output = b''
+  for input_byte in buffer:
+    output += bytes([input_byte ^ key])
+  return output

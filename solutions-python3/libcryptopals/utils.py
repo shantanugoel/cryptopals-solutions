@@ -18,6 +18,18 @@ def fixed_xor(first_buffer, second_buffer):
   return output
 
 
+def repeating_key_xor(buffer, key):
+  output = b''
+  keylen = len(key)
+  i = 0
+  for input_byte in buffer:
+    #if input_byte == '\n':
+      #continue
+    output += bytes([input_byte ^ key[i % keylen]])
+    i += 1
+  return output
+
+
 def english_score(string):
   score = 0
   scoring_space = " eEtTaAoOiInNsShHrRdDlLcCuUmMwWfFgGyYpPbBvVkKjJxXqQzZ"

@@ -9,11 +9,11 @@ input_bytes = bytes.fromhex(input)
 max_score = 0
 key = b''
 for k in range(32, 128):
-  score = english_score(str(object=single_byte_xor((input_bytes), k), encoding='utf-8'))
+  score = english_score(str(object=single_byte_xor(input_bytes, k), encoding='utf-8'))
   if score > max_score:
     key = k
     max_score = score
-output = str(object=single_byte_xor((input_bytes), key), encoding='utf-8')
+output = str(object=single_byte_xor(input_bytes, key), encoding='utf-8')
 print(output)
 if output == expected_output:
   print('Success!')

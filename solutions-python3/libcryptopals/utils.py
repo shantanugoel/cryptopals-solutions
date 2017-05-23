@@ -49,3 +49,24 @@ def single_byte_xor(buffer, key):
   for input_byte in buffer:
     output += bytes([input_byte ^ key])
   return output
+
+
+def count_bits(num):
+  count = 0
+  while num:
+    if num & 0x1:
+      count += 1
+    num = num >> 1
+  return count
+
+
+def get_hamming_distance(first_buffer, second_buffer):
+  if(len(first_buffer) != len(second_buffer)):
+    raise ValueError('Both buffers should be of same size')
+
+  distance = 0
+
+  for x, y in zip(first_buffer, second_buffer):
+    distance += count_bits(x ^ y)
+
+  return distance

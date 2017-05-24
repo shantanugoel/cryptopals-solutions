@@ -51,6 +51,17 @@ def single_byte_xor(buffer, key):
   return output
 
 
+def find_key_single_byte_xor(input_bytes):
+  max_score = 0
+  key = b''
+  for k in range(32, 128):
+    score = english_score(str(object=single_byte_xor(input_bytes, k), encoding='utf-8'))
+    if score > max_score:
+      key = k
+      max_score = score
+  return key, max_score
+
+
 def count_bits(num):
   count = 0
   while num:

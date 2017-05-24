@@ -1,2 +1,2 @@
 # Python requirements
-pynacl
+cryptography

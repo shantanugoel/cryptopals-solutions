@@ -81,3 +81,11 @@ def get_hamming_distance(first_buffer, second_buffer):
     distance += count_bits(x ^ y)
 
   return distance
+
+
+def pad_pkcs(input, pkcs, block_size):
+  if pkcs == 5 and block_size > 8:
+    raise ValueError("Block size should be <=8 for PKCS#5")
+  length = len(input)
+  pad_val = block_size - (length % block_size)
+  return input + chr(pad_val) * pad_val
